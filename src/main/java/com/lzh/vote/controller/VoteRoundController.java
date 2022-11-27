@@ -30,7 +30,7 @@ public class VoteRoundController {
      * @return
      */
     @PostMapping("/add")
-    @Authorization(value = true)
+    @Authorization(isAdmin = true)
     public Result addVoteRound(@Valid @RequestBody VoteRoundAddReq reqs, @CurrentUser CurrentUserReq user) {
         List<VoteRoundReq> voteRoundReqList = reqs.getVoteRoundReqList();
         if (voteRoundReqList.size() < VoteConstant.MINIMUM_CANDIDATE) {

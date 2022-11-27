@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Authorization {
     //是否需要管理员权限
-    boolean value();
+    boolean isAdmin();
 }

@@ -39,7 +39,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/start/vote")
-    @Authorization(value = true)
+    @Authorization(isAdmin = true)
     public Result startVote(VoteStatusReq req, @CurrentUser CurrentUserReq user){
         return userService.startVote(req,user);
     }
@@ -50,7 +50,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/end/vote")
-    @Authorization(value = true)
+    @Authorization(isAdmin = true)
     public Result<UserVoteRes> endVote(VoteStatusReq req, @CurrentUser CurrentUserReq user){
         return userService.endVote(req,user);
     }
@@ -61,7 +61,7 @@ public class UserController {
      * @return VoteUserInfoRes
      */
     @GetMapping("/user/vote")
-    @Authorization(value = true)
+    @Authorization(isAdmin = true)
     public Result<VoteUserInfoRes> getVoteUserInfo(VoteUserpageReq req, @CurrentUser CurrentUserReq user){
         return userService.getVoteUserInfo(req,user);
     }
@@ -82,7 +82,7 @@ public class UserController {
      * @return Result
      */
     @GetMapping("/vote")
-    @Authorization(value = false)
+    @Authorization(isAdmin = false)
     public Result<UserVoteRes> vote(UserVoteReq userVoteReq, @CurrentUser CurrentUserReq user){
         return userService.vote(userVoteReq,user);
     }
@@ -93,7 +93,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/candidateInfos")
-    @Authorization(value = false)
+    @Authorization(isAdmin = false)
     public Result<UserVoteRes> getCandidateInfo(CandidateInfoReq req,@CurrentUser CurrentUserReq user){
         return userService.getCandidateInfo(req, user);
     }
@@ -105,7 +105,7 @@ public class UserController {
      */
     @Async
     @GetMapping("/send/email")
-    @Authorization(value = true)
+    @Authorization(isAdmin = true)
     public Result sendEmail(SendMailReq req,@CurrentUser CurrentUserReq user){
         return userService.sendMail(req,user);
     }

@@ -28,7 +28,7 @@ public class CandidateController {
      * @return Result
      */
     @PostMapping("/add")
-    @Authorization(value = true)
+    @Authorization(isAdmin = true)
     public Result add(@Valid @RequestBody CandidateReq req, @CurrentUser CurrentUserReq user) {
         Integer add = candidateService.addCandidate(req,user);
         if (add <= 0) {

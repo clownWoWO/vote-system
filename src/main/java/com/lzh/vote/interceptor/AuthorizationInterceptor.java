@@ -47,13 +47,13 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         if (ObjectUtils.isEmpty(annotation)){
             return true;
         }
-        if (checkToken && !annotation.value()) {
+        if (checkToken && !annotation.isAdmin()) {
             //如果token验证成功并且不需要是管理员，将token对应的用户id存在request中，便于之后注入
             request.setAttribute(VoteConstant.CURRENT_USER_ID, model.getUserId());
             return true;
         }
         //判断是否有管理员权限
-        if (checkToken && annotation.value()) {
+        if (checkToken && annotation.isAdmin()) {
             UserDB userDB = userMapper.selectById(Integer.valueOf(model.getUserId()));
             //没有管理员权限返回401
             if (!userDB.getIsAdmin().equals(VoteConstant.IS_ADMIN)) {
