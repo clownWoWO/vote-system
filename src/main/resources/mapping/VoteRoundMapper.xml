@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzh.vote.mapper.UserVoteMapper">
+
+
+    <select id="getCandidateInfos" resultType="com.lzh.vote.entity.res.CandidateInfo">
+        select tc.id candidateId, tc.name candidateName, count(tuv.id) voteCount
+        from t_user_vote tuv
+                 left join t_candidate tc on tuv.candidate_id = tc.id
+        where tuv.round_id = #{roundId}
+        group by tuv.candidate_id
+        order by count(tuv.id) desc
+    </select>
+    <select id="getTotalCount" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        t_user_vote tuv
+        WHERE
+        tuv.round_id = #{roundId}
+        AND tuv.candidate_id = #{candidateId}
+    </select>
+    <select id="getVoteUserPage" resultType="com.lzh.vote.entity.res.VoteUserInfo">
+        SELECT
+        tu.id,
+        tu.user_name,
+        tu.id_card,
+        tu.email
+        FROM
+        t_user_vote tuv
+        LEFT JOIN t_user tu ON tuv.user_id = tu.id
+        WHERE
+        tuv.round_id = #{roundId}
+        AND tuv.candidate_id = #{candidateId}
+        LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="selectUserVotesByRoundId" resultType="com.lzh.vote.entity.res.VoteUserInfo"
+            parameterType="java.lang.Integer">
+        SELECT
+        tu.id,
+        tu.user_name,
+        tu.id_card,
+        tu.email
+        FROM
+        t_user_vote tuv
+        LEFT JOIN t_user tu ON tuv.user_id = tu.id
+        WHERE
+        tuv.round_id = 1
+    </select>
+</mapper>
